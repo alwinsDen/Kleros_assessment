@@ -4,7 +4,8 @@ export const renderSlice = createSlice({
     name:"saveContractDetails",
     initialState: {
         web3Instance: null,
-        contractId: "test"
+        contractId: "test",
+        accountId: null
     },
     reducers: {
         assignContId: (state, data) => {
@@ -12,8 +13,11 @@ export const renderSlice = createSlice({
         },
         assignWeb3Instance: (state, data)=> {
             state.web3Instance = data.payload
+        },
+        assignCurrId: (state, data)=> {
+            state.accountId = data.payload
         }
     }
 })
-export const {assignContId,assignWeb3Instance} = renderSlice.actions;
+export const {assignContId,assignWeb3Instance, assignCurrId} = renderSlice.actions;
 export default renderSlice.reducer;
