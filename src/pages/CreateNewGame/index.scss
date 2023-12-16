@@ -5,4 +5,33 @@
   justify-content: center;
   width: 100vw;
   height: 100vh;
+  &-centerComp{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .startGameButton{
+    background: #a6ccc1;
+    border: none;
+    color: #ffffff;
+    font-size: 2rem;
+    padding: 5px 0 5px 0;
+  }
+  .player2Key{
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    input {
+      flex: 1;
+      font-size: 1.2rem;
+      padding: 4px;
+      font-family: monospace;
+    }
+    p {
+      font-family: monospace;
+      font-weight: 600;
+      padding-right: 10px;
+    }
+  }
+
 }
