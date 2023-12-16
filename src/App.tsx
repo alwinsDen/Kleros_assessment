@@ -49,9 +49,26 @@ function App() {
     }
   }
 
+  async function j2Timeout(){
+    if (savedWeb3!==null){
+      const c_address = contractID
+      // @ts-ignore
+      const contract = new savedWeb3.eth.Contract(contractD.abi,c_address)
+      try {
+        await contract.methods.j2Timeout().send({
+          from: await contract.methods.j1().call(),
+          gas: '1000000' // Adjust gas limit as necessary
+        });
+      } catch (error) {
+        console.error('Error j2Timeout function', error);
+      }
+    }
+  }
+
   useEffect(()=>{
     metaMeet()
   },[])
+
   return (
     <div className="App">
       <header className="App-header">
@@ -75,7 +92,7 @@ function App() {
               .send({
                 // @ts-ignore
                 from: accountDetails[0],
-                value: "10",
+                value: Web3.utils.toWei('10','ether'),
                 gas: '1000000',
               })
               .on('error', (error) => {
@@ -102,6 +119,11 @@ function App() {
         <button onClick={Getj2}>
           Get Player 2
         </button>
+
+        <button onClick={j2Timeout}>
+          Player 2 hasn't played. Return the cash.
+        </button>
+
       </header>
     </div>
   );
