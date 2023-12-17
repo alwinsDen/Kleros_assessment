@@ -72,12 +72,12 @@ const ClockTimer = () => {
           gap: "20px",
         }}
       >
-        <div style={{ fontSize: "1.3rem" }}>
+        <div style={{ fontSize: "1.3rem", fontWeight: 600, color:"red"}}>
           <p>
             {deterMineMove === 2
               ? "Player 2 remaining"
               : deterMineMove === 1
-                ? "Player 1 has to reveal in"
+                ? <span style={{fontSize: "1.3rem", color:"darkcyan"}}>Player 1 has to reveal in</span>
                 : ""}
           </p>
           {<Countdown date={Number(prevTime) * 1000 + 300000} />}

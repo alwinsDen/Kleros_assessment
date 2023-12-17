@@ -60,7 +60,7 @@ const OpeningModal = ({
                 dispatch(assignContId(contractId));
                 setGameMode("joinGame");
               } else {
-                console.log("IMPOSTER");
+                window.alert("YOUR ARE NOT A PARTICIPANT OF THIS GAME.")
               }
             } catch (e) {
               toast.error("INVALID ETHEREUM ID")

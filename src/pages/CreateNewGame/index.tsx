@@ -49,6 +49,9 @@ const CreateNewGame = () => {
         justifyContent: "center",
       }}
     >
+      <div className="player-info">
+        <p>You are player 1</p>
+      </div>
       <form
         className={"createNewGame"}
         autoComplete="off"

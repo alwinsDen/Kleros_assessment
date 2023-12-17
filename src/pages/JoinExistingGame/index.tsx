@@ -105,6 +105,9 @@ const JoinExisitngGame = () => {
         justifyContent: "center",
       }}
     >
+      <div className="player-info">
+        <p>You are player {playerMode === "ORGANIZER" ? 1 : 2}</p>
+      </div>
       <form
         className={"createNewGame"}
         autoComplete="off"
