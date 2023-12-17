@@ -54,3 +54,16 @@
     font-weight: 600;
   }
 }
+
+.revealForm {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
+  border: skyblue solid 2px;
+
+  input {
+    font-size: 1rem;
+    font-family: monospace;
+  }
+}

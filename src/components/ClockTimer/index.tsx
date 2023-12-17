@@ -47,11 +47,11 @@ const ClockTimer = () => {
     if (contractId) {
       RunInstanceCount();
       console.log(typeof deterMineMove);
-      if (deterMineMove !== 1) {
-        intervalId = setInterval(() => {
+      intervalId = setInterval(() => {
+        if (deterMineMove !== 1) {
           RunInstanceCount();
-        }, 10000);
-      }
+        }
+      }, 10000);
     }
     return () => {
       if (intervalId) {

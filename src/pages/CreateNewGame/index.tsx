@@ -121,15 +121,18 @@ const CreateNewGame = () => {
             />
             &nbsp; &nbsp; &nbsp;
             <p style={{ background: "black", color: "white" }}>Secret salt: </p>
-            <input required={true} autoComplete="off" name={"secretsalt"} />
+            <input
+              required={true}
+              autoComplete="off"
+              name={"secretsalt"}
+              type={"number"}
+            />
           </div>
-          <button
-            className={"startGameButton"}
-            type={"submit"}
-            disabled={contractId !== null}
-          >
-            {contractId !== null ? "Player 2 move now" : "Start Game"}
-          </button>
+          {contractId === null && (
+            <button className={"startGameButton"} type={"submit"}>
+              Start Game
+            </button>
+          )}
         </div>
       </form>
       {contractId && (
@@ -137,9 +140,37 @@ const CreateNewGame = () => {
           <button className={"clickableFunctions"} onClick={j2Timeout}>
             Timeout Player 2{" "}
           </button>
-          <button className={"clickableFunctions"} onClick={j2Timeout}>
-            Reveal move{" "}
-          </button>
+          <form
+            className={"revealForm"}
+            onSubmit={async (e: any) => {
+              e.preventDefault();
+              if (e.target.move.value && e.target.salt.value) {
+                let contract = new web3Instance.eth.Contract(
+                  contractInfo.abi,
+                  contractId,
+                );
+                try {
+                  await contract.methods
+                    .solve(
+                      Number(e.target.move.value),
+                      Number(e.target.salt.value),
+                    )
+                    .send({
+                      from: userId,
+                      gas: "1000000",
+                    });
+                } catch (e: any) {
+                  console.log(e.message);
+                }
+              }
+            }}
+          >
+            <input placeholder={"Your Move"} required={true} name={"move"} />
+            <input placeholder={"Your Salt"} required={true} name={"salt"} />
+            <button className={"clickableFunctions"} type={"submit"}>
+              Reveal move{" "}
+            </button>
+          </form>
         </div>
       )}
     </div>

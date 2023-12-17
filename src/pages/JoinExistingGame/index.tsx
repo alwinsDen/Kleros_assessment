@@ -28,6 +28,10 @@ const JoinExisitngGame = () => {
     (state: any) => state.saveContractDetails.contractId,
   );
 
+  const deterMineMove = useSelector(
+    (state: any) => state.saveContractDetails.deterMineMove,
+  );
+
   //timeout player 2
   const j1Timeout = async () => {
     const contract = new web3Instance.eth.Contract(
@@ -133,9 +137,11 @@ const JoinExisitngGame = () => {
               value={optionState}
             />
           </div>
-          <button className={"startGameButton"} type={"submit"}>
-            Your Move
-          </button>
+          {deterMineMove == 2 && (
+            <button className={"startGameButton"} type={"submit"}>
+              Your Move
+            </button>
+          )}
         </div>
       </form>
       {contractId && (
