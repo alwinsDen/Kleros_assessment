@@ -7,6 +7,10 @@ import DisplayInstanceId from "../../components/DisplayInstanceId";
 import CreateNewGame from "../CreateNewGame";
 import JoinExisitngGame from "../JoinExistingGame";
 import GlobalLoader from "../../components/GlobalLoader";
+import { ToastContainer } from "react-toastify";
+
+//toast container input
+import 'react-toastify/dist/ReactToastify.css';
 
 const ChooseStratergy = () => {
   //states
@@ -31,6 +35,7 @@ const ChooseStratergy = () => {
   }, []);
   return (
     <>
+      <ToastContainer/>
       <DisplayInstanceId />
       <GlobalLoader />
       {gameMode == null && <OpeningModal setGameMode={setGameMode} />}
