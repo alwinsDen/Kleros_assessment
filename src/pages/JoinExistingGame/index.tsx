@@ -162,7 +162,7 @@ const JoinExisitngGame = () => {
           )}
           {playerMode !== "ORGANIZER" && deterMineMove == 2 && (
             <button className={"startGameButton"} type={"submit"}>
-              Your Move
+              Play the move
             </button>
           )}
         </div>

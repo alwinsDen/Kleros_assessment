@@ -6,6 +6,7 @@ import { Web3 } from "web3";
 import DisplayInstanceId from "../../components/DisplayInstanceId";
 import CreateNewGame from "../CreateNewGame";
 import JoinExisitngGame from "../JoinExistingGame";
+import GlobalLoader from "../../components/GlobalLoader";
 
 const ChooseStratergy = () => {
   //states
@@ -31,7 +32,7 @@ const ChooseStratergy = () => {
   return (
     <>
       <DisplayInstanceId />
-      {/*<GlobalLoader/>*/}
+      <GlobalLoader />
       {gameMode == null && <OpeningModal setGameMode={setGameMode} />}
       {gameMode == "createNew" && <CreateNewGame />}
       {gameMode == "joinGame" && <JoinExisitngGame />}

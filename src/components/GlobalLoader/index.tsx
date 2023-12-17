@@ -1,12 +1,25 @@
 import React from "react";
 import "./index.scss";
+import { Blocks } from "react-loader-spinner";
+import { useSelector } from "react-redux";
 
 const GlobalLoader = () => {
+  const gloading = useSelector(
+    (state: any) => state.saveContractDetails.gloading,
+  );
   return (
-    <div className={"globalLoader"}>
-      <div>Hey tehre</div>
-      <div className={"backgroundBlurr"}>ssdfsdf</div>
-    </div>
+    gloading && (
+      <div className={"globalLoader"}>
+        <Blocks
+          visible={true}
+          height="200"
+          width="200"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+        />
+      </div>
+    )
   );
 };
 export default GlobalLoader;

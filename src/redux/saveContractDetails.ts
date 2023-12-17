@@ -8,8 +8,12 @@ export const renderSlice = createSlice({
     accountId: null,
     deterMineMove: 0,
     playerMode: null,
+    gloading: false,
   },
   reducers: {
+    setGloading: (state, data) => {
+      state.gloading = data.payload;
+    },
     assignPlayerMode: (state, data) => {
       state.playerMode = data.payload;
     },
@@ -28,6 +32,7 @@ export const renderSlice = createSlice({
   },
 });
 export const {
+  setGloading,
   assignPlayerMode,
   assignContId,
   assignMove,

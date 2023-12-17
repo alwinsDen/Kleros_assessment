@@ -66,8 +66,14 @@ const OpeningModal = ({
             }
           }}
         >
-          Join exiting game
+          Join existing game
         </button>
+        <p className={"warning_remember"}>
+          * Remember the Contract ID created.
+        </p>
+        <p className={"warning_remember"}>
+          Both players will require it to login back into the game.
+        </p>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import "./index.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { Web3 } from "web3";
 import contractInfo from "../../compiled_contract/RPS.json";
-import { assignContId } from "../../redux/saveContractDetails";
+import { assignContId, setGloading } from "../../redux/saveContractDetails";
 import ClockTimer from "../../components/ClockTimer";
 
 const CreateNewGame = () => {
@@ -64,25 +64,33 @@ const CreateNewGame = () => {
 
           //now we deploy the contract
           if (generateHash !== undefined) {
-            contract
-              .deploy({
-                data: contractInfo.bytecode,
-                arguments: [generateHash, e.target.player2.value],
-              })
-              .send({
-                from: userId,
-                value: Web3.utils.toWei(e.target.ethamount.value, "ether"),
-              })
-              .on("error", (error: any) => {
-                console.error("Error deploying contract:", error);
-              })
-              .then((newContractInstance: any) => {
-                dispatch(assignContId(newContractInstance.options.address));
-                console.log(
-                  "Deployed Contract Address:",
-                  newContractInstance.options.address,
-                );
-              });
+            dispatch(setGloading(true));
+            try {
+              contract
+                .deploy({
+                  data: contractInfo.bytecode,
+                  arguments: [generateHash, e.target.player2.value],
+                })
+                .send({
+                  from: userId,
+                  value: Web3.utils.toWei(e.target.ethamount.value, "ether"),
+                })
+                .on("error", (error: any) => {
+                  dispatch(setGloading(false));
+                  console.error("Error deploying contract:", error);
+                })
+                .then((newContractInstance: any) => {
+                  dispatch(assignContId(newContractInstance.options.address));
+                  console.log(
+                    "Deployed Contract Address:",
+                    newContractInstance.options.address,
+                  );
+                  dispatch(setGloading(false));
+                });
+            } catch (error) {
+              dispatch(setGloading(false));
+              console.error("Error deploying contract:", error);
+            }
           }
         }}
       >
