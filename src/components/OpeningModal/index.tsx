@@ -8,6 +8,7 @@ import {
   assignContId,
   assignPlayerMode,
 } from "../../redux/saveContractDetails";
+import { toast } from "react-toastify";
 
 const OpeningModal = ({
   setGameMode,
@@ -62,7 +63,7 @@ const OpeningModal = ({
                 console.log("IMPOSTER");
               }
             } catch (e) {
-              console.log("INVALID ETHEREUM ID");
+              toast.error("INVALID ETHEREUM ID")
             }
           }}
         >

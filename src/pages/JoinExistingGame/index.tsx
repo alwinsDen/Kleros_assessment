@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Web3 } from "web3";
 import contractInfo from "../../compiled_contract/RPS.json";
 import ClockTimer from "../../components/ClockTimer";
+import { toast } from "react-toastify";
 
 const JoinExisitngGame = () => {
   //states
@@ -47,7 +48,7 @@ const JoinExisitngGame = () => {
         from: userId,
       });
     } catch (e: any) {
-      console.log("Error from J2 timeout", e.message);
+      toast.error("Failed to call the function")
     }
   };
 
@@ -61,7 +62,7 @@ const JoinExisitngGame = () => {
         from: userId,
       });
     } catch (e: any) {
-      console.log("Error from J2 timeout", e.message);
+      toast.error(e.message)
     }
   };
 
@@ -75,8 +76,8 @@ const JoinExisitngGame = () => {
       setGameDetailsState((state) => {
         return { ...state, player: j2Address };
       });
-    } catch (error) {
-      console.error("Error calling j1 function:", error);
+    } catch (error : any) {
+      toast.error(error.message)
     }
 
     try {
@@ -84,8 +85,8 @@ const JoinExisitngGame = () => {
       setGameDetailsState((state) => {
         return { ...state, stake: stake };
       });
-    } catch (error) {
-      console.error("Error calling Stake:", error);
+    } catch (error : any) {
+      toast.error(error.message)
     }
   };
 
@@ -115,7 +116,9 @@ const JoinExisitngGame = () => {
               from: userId,
               value: gameDetailsState.stake,
             });
-          } catch (e) {}
+          } catch (e:any) {
+            toast.error(e.message)
+          }
         }}
       >
         <div className={"createNewGame-centerComp"}>
@@ -199,6 +202,7 @@ const JoinExisitngGame = () => {
                     });
                 } catch (e: any) {
                   console.log(e.message);
+                  toast.error(e.message)
                 }
               }
             }}

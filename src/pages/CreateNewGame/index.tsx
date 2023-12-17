@@ -6,6 +6,7 @@ import { Web3 } from "web3";
 import contractInfo from "../../compiled_contract/RPS.json";
 import { assignContId, setGloading } from "../../redux/saveContractDetails";
 import ClockTimer from "../../components/ClockTimer";
+import { toast } from "react-toastify";
 
 const CreateNewGame = () => {
   //states
@@ -36,7 +37,7 @@ const CreateNewGame = () => {
         from: userId,
       });
     } catch (e: any) {
-      console.log("Error from J2 timeout", e.message);
+      toast.error(e.message)
     }
   };
   return (
@@ -87,9 +88,9 @@ const CreateNewGame = () => {
                   );
                   dispatch(setGloading(false));
                 });
-            } catch (error) {
+            } catch (error : any) {
               dispatch(setGloading(false));
-              console.error("Error deploying contract:", error);
+              toast.error(error.message)
             }
           }
         }}
@@ -166,8 +167,8 @@ const CreateNewGame = () => {
                     .send({
                       from: userId,
                     });
-                } catch (e: any) {
-                  console.log(e.message);
+                } catch (error: any) {
+                  toast.error(error.message)
                 }
               }
             }}
