@@ -37,7 +37,7 @@ const JoinExisitngGame = () => {
     (state: any) => state.saveContractDetails.playerMode,
   );
 
-  //timeout player 2
+  //timeout player 1
   const j1Timeout = async () => {
     const contract = new web3Instance.eth.Contract(
       contractInfo.abi,
@@ -46,12 +46,14 @@ const JoinExisitngGame = () => {
     try {
       await contract.methods.j1Timeout().send({
         from: userId,
+        gas: "1000000",
       });
     } catch (e: any) {
-      toast.error("Failed to call the function")
+      toast.error("Failed to call the function");
     }
   };
 
+  //timeout player 2
   const j2Timeout = async () => {
     const contract = new web3Instance.eth.Contract(
       contractInfo.abi,
@@ -60,9 +62,10 @@ const JoinExisitngGame = () => {
     try {
       await contract.methods.j2Timeout().send({
         from: userId,
+        gas: "1000000",
       });
     } catch (e: any) {
-      toast.error(e.message)
+      toast.error(e.message);
     }
   };
 
@@ -76,8 +79,8 @@ const JoinExisitngGame = () => {
       setGameDetailsState((state) => {
         return { ...state, player: j2Address };
       });
-    } catch (error : any) {
-      toast.error(error.message)
+    } catch (error: any) {
+      toast.error(error.message);
     }
 
     try {
@@ -85,8 +88,8 @@ const JoinExisitngGame = () => {
       setGameDetailsState((state) => {
         return { ...state, stake: stake };
       });
-    } catch (error : any) {
-      toast.error(error.message)
+    } catch (error: any) {
+      toast.error(error.message);
     }
   };
 
@@ -115,9 +118,10 @@ const JoinExisitngGame = () => {
             await contract.methods.play(Number(optionState)).send({
               from: userId,
               value: gameDetailsState.stake,
+              gas: "1000000",
             });
-          } catch (e:any) {
-            toast.error(e.message)
+          } catch (e: any) {
+            toast.error(e.message);
           }
         }}
       >
@@ -199,10 +203,11 @@ const JoinExisitngGame = () => {
                     )
                     .send({
                       from: userId,
+                      gas: "1000000",
                     });
                 } catch (e: any) {
                   console.log(e.message);
-                  toast.error(e.message)
+                  toast.error(e.message);
                 }
               }
             }}

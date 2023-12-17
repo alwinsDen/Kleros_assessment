@@ -35,9 +35,10 @@ const CreateNewGame = () => {
     try {
       await contract.methods.j2Timeout().send({
         from: userId,
+        gas: "1000000",
       });
     } catch (e: any) {
-      toast.error(e.message)
+      toast.error(e.message);
     }
   };
   return (
@@ -75,6 +76,7 @@ const CreateNewGame = () => {
                 .send({
                   from: userId,
                   value: Web3.utils.toWei(e.target.ethamount.value, "ether"),
+                  gas: "1000000",
                 })
                 .on("error", (error: any) => {
                   dispatch(setGloading(false));
@@ -88,9 +90,9 @@ const CreateNewGame = () => {
                   );
                   dispatch(setGloading(false));
                 });
-            } catch (error : any) {
+            } catch (error: any) {
               dispatch(setGloading(false));
-              toast.error(error.message)
+              toast.error(error.message);
             }
           }
         }}
@@ -166,9 +168,10 @@ const CreateNewGame = () => {
                     )
                     .send({
                       from: userId,
+                      gas: "1000000",
                     });
                 } catch (error: any) {
-                  toast.error(error.message)
+                  toast.error(error.message);
                 }
               }
             }}
