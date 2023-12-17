@@ -148,6 +148,7 @@ const JoinExisitngGame = () => {
                 type={"number"}
                 value={Web3.utils.fromWei(gameDetailsState.stake, "ether")}
                 name={"ethamount"}
+                step="0.0001"
               />
             </div>
           )}

@@ -109,6 +109,7 @@ const CreateNewGame = () => {
               required={true}
               type={"number"}
               name={"ethamount"}
+              step="0.0001"
             />
           </div>
           <div className={"player2Key"}>
