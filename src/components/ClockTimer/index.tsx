@@ -72,7 +72,7 @@ const ClockTimer = () => {
           gap: "20px",
         }}
       >
-        <div style={{ fontSize: "1.3rem", fontWeight: 600, color:"red"}}>
+        <div style={{ fontSize: "1.3rem", fontWeight: 600, color: deterMineMove === 1 ? "darkcyan":"red"}}>
           <p>
             {deterMineMove === 2
               ? "Player 2 remaining"
