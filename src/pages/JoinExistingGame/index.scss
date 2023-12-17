@@ -1,16 +1,18 @@
-.createNewGame{
+.createNewGame {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: max-content;
   height: 100vh;
-  &-centerComp{
+
+  &-centerComp {
     display: flex;
     flex-direction: column;
     gap: 15px;
   }
-  .startGameButton{
+
+  .startGameButton {
     background: #a6ccc1;
     border: none;
     color: #ffffff;
@@ -21,16 +23,19 @@
       background: lightgray;
     }
   }
-  .player2Key{
+
+  .player2Key {
     display: flex;
     align-items: center;
     font-size: 1rem;
+
     input {
       flex: 1;
       font-size: 1.2rem;
       padding: 4px;
       font-family: monospace;
     }
+
     p {
       font-family: monospace;
       font-weight: 600;
