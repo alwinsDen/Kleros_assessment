@@ -113,7 +113,7 @@ const CreateNewGame = () => {
             />
           </div>
           <div className={"player2Key"}>
-            <p>Selected Option: </p>
+            <p>Selected Move: </p>
             <input
               style={{ width: "20px" }}
               disabled={true}
