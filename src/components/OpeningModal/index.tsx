@@ -1,9 +1,13 @@
 import React, { Dispatch, SetStateAction } from "react";
 import "./index.scss";
 import { useDispatch, useSelector } from "react-redux";
+import contractInfo from "../../compiled_contract/RPS.json";
 
 //import contract details
-import { assignContId } from "../../redux/saveContractDetails";
+import {
+  assignContId,
+  assignPlayerMode,
+} from "../../redux/saveContractDetails";
 
 const OpeningModal = ({
   setGameMode,
@@ -34,10 +38,32 @@ const OpeningModal = ({
         </div>
         <button
           className={"join-existing"}
-          onClick={() => {
+          onClick={async () => {
             let contractId = window.prompt("Enter the game contract ID");
-            dispatch(assignContId(contractId));
-            setGameMode("joinGame");
+            let contract = new web3Instance.eth.Contract(
+              contractInfo.abi,
+              contractId,
+            );
+            try {
+              const [player1, player2] = await Promise.all([
+                contract.methods.j1().call(),
+                contract.methods.j2().call(),
+              ]);
+              if (player1 === userId) {
+                console.log("ORGANIZER");
+                dispatch(assignContId(contractId));
+                dispatch(assignPlayerMode("ORGANIZER"));
+                setGameMode("joinGame");
+              } else if (player2 === userId) {
+                dispatch(assignPlayerMode("OPPONENT"));
+                dispatch(assignContId(contractId));
+                setGameMode("joinGame");
+              } else {
+                console.log("IMPOSTER");
+              }
+            } catch (e) {
+              console.log("INVALID ETHEREUM ID");
+            }
           }}
         >
           Join exiting game

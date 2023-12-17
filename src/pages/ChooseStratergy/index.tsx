@@ -10,7 +10,7 @@ import JoinExisitngGame from "../JoinExistingGame";
 const ChooseStratergy = () => {
   //states
   const [gameMode, setGameMode] = useState<string | null>(null);
-
+  const [playerMode, setPlayerMode] = useState("mode");
   //import redux state
   const dispatch = useDispatch();
 

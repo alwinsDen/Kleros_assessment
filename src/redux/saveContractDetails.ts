@@ -7,8 +7,12 @@ export const renderSlice = createSlice({
     contractId: null,
     accountId: null,
     deterMineMove: 0,
+    playerMode: null,
   },
   reducers: {
+    assignPlayerMode: (state, data) => {
+      state.playerMode = data.payload;
+    },
     assignContId: (state, data) => {
       state.contractId = data.payload;
     },
@@ -23,6 +27,11 @@ export const renderSlice = createSlice({
     },
   },
 });
-export const { assignContId, assignMove, assignWeb3Instance, assignCurrId } =
-  renderSlice.actions;
+export const {
+  assignPlayerMode,
+  assignContId,
+  assignMove,
+  assignWeb3Instance,
+  assignCurrId,
+} = renderSlice.actions;
 export default renderSlice.reducer;

@@ -32,6 +32,10 @@ const JoinExisitngGame = () => {
     (state: any) => state.saveContractDetails.deterMineMove,
   );
 
+  const playerMode = useSelector(
+    (state: any) => state.saveContractDetails.playerMode,
+  );
+
   //timeout player 2
   const j1Timeout = async () => {
     const contract = new web3Instance.eth.Contract(
@@ -40,6 +44,21 @@ const JoinExisitngGame = () => {
     );
     try {
       await contract.methods.j1Timeout().send({
+        from: userId,
+        gas: "1000000",
+      });
+    } catch (e: any) {
+      console.log("Error from J2 timeout", e.message);
+    }
+  };
+
+  const j2Timeout = async () => {
+    const contract = new web3Instance.eth.Contract(
+      contractInfo.abi,
+      contractId,
+    );
+    try {
+      await contract.methods.j2Timeout().send({
         from: userId,
         gas: "1000000",
       });
@@ -105,7 +124,7 @@ const JoinExisitngGame = () => {
         <div className={"createNewGame-centerComp"}>
           <ClockTimer />
           <div className={"player2Key"}>
-            <p>Your Public key:</p>
+            <p>Player 2 public key:</p>
             <input
               placeholder={"e.g. 0x2293E084Ce76BD9F3345345K"}
               required={true}
@@ -114,41 +133,85 @@ const JoinExisitngGame = () => {
               value={gameDetailsState.player}
             />
           </div>
-          <SelectMove
-            optionState={optionState}
-            setOptionState={setOptionState}
-          />
-          <div className={"player2Key"}>
-            <p>Stake ETH Amount:[Set by Player 1] </p>
-            <input
-              placeholder={"ETH"}
-              required={true}
-              type={"number"}
-              value={Web3.utils.fromWei(gameDetailsState.stake, "ether")}
-              name={"ethamount"}
+          {playerMode !== "ORGANIZER" && (
+            <SelectMove
+              optionState={optionState}
+              setOptionState={setOptionState}
             />
-          </div>
-          <div className={"player2Key"}>
-            <p>Selected Option: </p>
-            <input
-              style={{ width: "20px" }}
-              disabled={true}
-              required={true}
-              value={optionState}
-            />
-          </div>
-          {deterMineMove == 2 && (
+          )}
+          {playerMode !== "ORGANIZER" && (
+            <div className={"player2Key"}>
+              <p>Stake ETH Amount:[Set by Player 1] </p>
+              <input
+                placeholder={"ETH"}
+                required={true}
+                type={"number"}
+                value={Web3.utils.fromWei(gameDetailsState.stake, "ether")}
+                name={"ethamount"}
+              />
+            </div>
+          )}
+          {playerMode !== "ORGANIZER" && (
+            <div className={"player2Key"}>
+              <p>Selected Move: </p>
+              <input
+                style={{ width: "20px" }}
+                disabled={true}
+                required={true}
+                value={optionState}
+              />
+            </div>
+          )}
+          {playerMode !== "ORGANIZER" && deterMineMove == 2 && (
             <button className={"startGameButton"} type={"submit"}>
               Your Move
             </button>
           )}
         </div>
       </form>
-      {contractId && (
+      {contractId && playerMode !== "ORGANIZER" && (
         <div className={"clickableFunctionsDiv"}>
           <button className={"clickableFunctions"} onClick={j1Timeout}>
             Timeout Player 1{" "}
           </button>
+        </div>
+      )}
+      {contractId && playerMode === "ORGANIZER" && (
+        <div className={"clickableFunctionsDiv"}>
+          <button className={"clickableFunctions"} onClick={j2Timeout}>
+            Timeout Player 2{" "}
+          </button>
+          <form
+            className={"revealForm"}
+            onSubmit={async (e: any) => {
+              e.preventDefault();
+              if (e.target.move.value && e.target.salt.value) {
+                let contract = new web3Instance.eth.Contract(
+                  contractInfo.abi,
+                  contractId,
+                );
+                try {
+                  await contract.methods
+                    .solve(
+                      Number(e.target.move.value),
+                      Number(e.target.salt.value),
+                    )
+                    .send({
+                      from: userId,
+                      gas: "1000000",
+                    });
+                } catch (e: any) {
+                  console.log(e.message);
+                }
+              }
+            }}
+          >
+            <input placeholder={"Your Move"} required={true} name={"move"} />
+            <input placeholder={"Your Salt"} required={true} name={"salt"} />
+            <button className={"clickableFunctions"} type={"submit"}>
+              Reveal move{" "}
+            </button>
+          </form>
         </div>
       )}
     </div>

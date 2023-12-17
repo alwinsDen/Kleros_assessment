@@ -69,6 +69,7 @@ const ClockTimer = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          gap: "20px",
         }}
       >
         <div style={{ fontSize: "1.3rem" }}>
