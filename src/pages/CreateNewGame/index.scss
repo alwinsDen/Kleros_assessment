@@ -16,7 +16,11 @@
     color: #ffffff;
     font-size: 2rem;
     padding: 5px 0 5px 0;
+    cursor: pointer;
 
+    &:hover {
+      background: #e09300;
+    }
     &:disabled {
       background: lightgray;
     }

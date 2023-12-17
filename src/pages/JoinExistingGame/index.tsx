@@ -45,7 +45,6 @@ const JoinExisitngGame = () => {
     try {
       await contract.methods.j1Timeout().send({
         from: userId,
-        gas: "1000000",
       });
     } catch (e: any) {
       console.log("Error from J2 timeout", e.message);
@@ -60,7 +59,6 @@ const JoinExisitngGame = () => {
     try {
       await contract.methods.j2Timeout().send({
         from: userId,
-        gas: "1000000",
       });
     } catch (e: any) {
       console.log("Error from J2 timeout", e.message);
@@ -116,7 +114,6 @@ const JoinExisitngGame = () => {
             await contract.methods.play(Number(optionState)).send({
               from: userId,
               value: gameDetailsState.stake,
-              gas: "100000",
             });
           } catch (e) {}
         }}
@@ -199,7 +196,6 @@ const JoinExisitngGame = () => {
                     )
                     .send({
                       from: userId,
-                      gas: "1000000",
                     });
                 } catch (e: any) {
                   console.log(e.message);

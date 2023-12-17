@@ -34,7 +34,6 @@ const CreateNewGame = () => {
     try {
       await contract.methods.j2Timeout().send({
         from: userId,
-        gas: "1000000",
       });
     } catch (e: any) {
       console.log("Error from J2 timeout", e.message);
@@ -73,7 +72,6 @@ const CreateNewGame = () => {
               .send({
                 from: userId,
                 value: Web3.utils.toWei(e.target.ethamount.value, "ether"),
-                gas: "1000000",
               })
               .on("error", (error: any) => {
                 console.error("Error deploying contract:", error);
@@ -105,7 +103,7 @@ const CreateNewGame = () => {
           <div className={"player2Key"}>
             <p>Stake ETH Amount: </p>
             <input
-              placeholder={"ETH"}
+              placeholder={"Minimum 0.0001 ETH"}
               required={true}
               type={"number"}
               name={"ethamount"}
@@ -126,6 +124,7 @@ const CreateNewGame = () => {
               required={true}
               autoComplete="off"
               name={"secretsalt"}
+              placeholder={"Remember this!"}
               type={"number"}
             />
           </div>
@@ -158,7 +157,6 @@ const CreateNewGame = () => {
                     )
                     .send({
                       from: userId,
-                      gas: "1000000",
                     });
                 } catch (e: any) {
                   console.log(e.message);

@@ -83,7 +83,9 @@ const ClockTimer = () => {
           {<Countdown date={Number(prevTime) * 1000 + 300000} />}
         </div>
         <div className={"contractDiv"}>
-          <p style={{ textAlign: "right" }}>CONTRACT ID</p>
+          <p style={{ textAlign: "right" }}>
+            CONTRACT ID <span>[Remember This!! && share]</span>
+          </p>
           <p>{contractId}</p>
         </div>
       </div>
